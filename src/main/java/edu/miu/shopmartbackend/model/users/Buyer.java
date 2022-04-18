@@ -27,4 +27,7 @@ public class Buyer extends User {
     @OneToOne
     private ShoppingCart shoppingCart;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Seller> following;
+
 }

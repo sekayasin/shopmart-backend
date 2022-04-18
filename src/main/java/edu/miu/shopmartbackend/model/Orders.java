@@ -5,6 +5,8 @@ import edu.miu.shopmartbackend.model.users.Buyer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,6 +19,7 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @DateTimeFormat(style = "yyyy-mm-dd")
     private LocalDate orderDate;
     private OrderStatus orderStatus;
     private double totalOrderPrice;
