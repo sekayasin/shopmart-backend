@@ -2,7 +2,7 @@ package edu.miu.shopmartbackend.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.miu.shopmartbackend.enums.OrderStatus;
-import edu.miu.shopmartbackend.model.users.Buyer;
+import edu.miu.shopmartbackend.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +22,5 @@ public class OrderDto {
     @JsonProperty("total_price")
     private double totalOrderPrice;
     @JsonProperty("buyer")
-    private Buyer buyer;
+    private User buyer;
 }

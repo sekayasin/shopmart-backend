@@ -1,11 +1,12 @@
 package edu.miu.shopmartbackend.service;
 
-import edu.miu.shopmartbackend.model.users.User;
+import edu.miu.shopmartbackend.model.Role;
+import edu.miu.shopmartbackend.model.User;
+import edu.miu.shopmartbackend.model.dto.UsernamePassDto;
 
 import java.util.List;
 
 public interface UserService {
-
 
     User getUserByUsername(String username);
 
@@ -13,9 +14,11 @@ public interface UserService {
 
     User getUserById(long id);
 
-    void addUser(User user);
+    void addUser(UsernamePassDto user);
 
     void deleteUser(long id);
 
-//    User isUsernameAvailable(UserAvailabilityRequest userAvailabilityRequest);
+    Role saveRole(Role role);
+
+    void addRoleToUser(String username, String role);
 }

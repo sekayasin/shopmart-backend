@@ -6,22 +6,20 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Entity
-public class Review {
+public class Follow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content;
-    private boolean isApproved;
-
     @ManyToOne
-    private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "buyer_id")
+    @JoinColumn(name="buyer_id")
     private User buyer;
+
+    @ManyToOne
+    @JoinColumn(name="seller_id")
+    private User seller;
 }
