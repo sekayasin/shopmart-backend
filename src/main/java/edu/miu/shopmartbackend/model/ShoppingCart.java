@@ -13,9 +13,11 @@ import java.util.List;
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long cartId;
+    private Long id;
+
     @OneToMany
     private List<Product> products;
 
-
+    @OneToOne
+    private User buyer;
 }

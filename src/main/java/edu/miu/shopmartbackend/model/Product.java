@@ -1,6 +1,5 @@
 package edu.miu.shopmartbackend.model;
 
-import edu.miu.shopmartbackend.model.users.Seller;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,14 +13,13 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long productId;
+    private Long id;
+
     private String productName;
     private double price;
     private String description;
     private boolean isPurchased;
+
     @OneToMany
     private List<Review> reviews;
-    @ManyToOne
-    private Seller sellers;
-
 }
