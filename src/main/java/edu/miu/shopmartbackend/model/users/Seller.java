@@ -16,6 +16,7 @@ public class Seller extends User{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private boolean isApproved;
     @OneToMany
     private List<Product>products;
 

@@ -56,9 +56,14 @@ public class BuyerServiceImpl implements BuyerService {
         Product product = productRepo.findById(productId).get();
         review.setBuyer(buyer);
         review.setProduct(product);
-        review.setApproved(false);
+        review.setApproved(true);
         return reviewRepo.save(review);
     }
+
+    public void approveBuyer(Review review, long product_id){
+
+    }
+
 
     @Override
     public List<Review> findReviewsByBuyerId(long id) {
@@ -101,7 +106,7 @@ public class BuyerServiceImpl implements BuyerService {
         Buyer buyer = buyerRepo.findById(id).get();
         if(buyer == null)
             throw new RuntimeException();
-        List<Seller> sellers = (List<Seller>) buyer.getFollowing();
+        List<Seller> sellers = buyer.getFollowing();
         if(sellers == null)
             sellers = new ArrayList<>();
         sellers.add(seller);

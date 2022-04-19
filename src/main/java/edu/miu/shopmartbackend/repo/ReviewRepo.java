@@ -15,5 +15,4 @@ public interface ReviewRepo extends JpaRepository<Review, Long > {
     @Query(value = "select r from Review  r where r.buyer=:buyer")
     List<Review> findAllByBuyer(Buyer buyer);
 
-    List<Review> findAllByProduct(Product product);
 }
