@@ -82,4 +82,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Role role1 = roleRepo.findByRole(role);
         user.getRoles().add(role1);
     }
+
+    @Override
+    public User approveSeller(long id) {
+        return null;
+    }
 }

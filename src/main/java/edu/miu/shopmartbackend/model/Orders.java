@@ -24,6 +24,9 @@ public class Orders {
     private OrderStatus orderStatus;
     private double totalOrderPrice;
 
+    @ManyToOne
+    private User user;
+
     @OneToMany
     private List<Product> products;
 }

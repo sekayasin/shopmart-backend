@@ -40,5 +40,9 @@ public class UserController {
         userService.deleteUser(id);
     }
 
+    User approveSeller(long id){
+        return null;
+    }
+
 
 }

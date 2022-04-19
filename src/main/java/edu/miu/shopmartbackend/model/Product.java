@@ -20,6 +20,10 @@ public class Product {
     private String description;
     private boolean isPurchased;
 
+    //seller
+    @ManyToOne
+    private User user;
+
     @OneToMany
     private List<Review> reviews;
 }

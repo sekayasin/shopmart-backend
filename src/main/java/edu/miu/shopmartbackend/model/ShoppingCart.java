@@ -19,5 +19,5 @@ public class ShoppingCart {
     private List<Product> products;
 
     @OneToOne
-    private User buyer;
+    private User user;
 }
