@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ShoppingCartRepo extends JpaRepository<ShoppingCart,Long> {
 
-    @Query(value = "select s from ShoppingCart  s where s.user=:user")
+    @Query(value = "select s from ShoppingCart  s where s.buyer=:user")
     ShoppingCart findShoppingCartByBuyer(User user);
 
-    @Query(value = "select s from ShoppingCart s where s.user=:user")
+    @Query(value = "select s from ShoppingCart s where s.buyer=:user")
     ShoppingCart findFirstByBuyer(User user);
 }

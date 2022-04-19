@@ -81,7 +81,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void addRoleToUser(String username, String role) {
+        log.info("adding role to user.......");
         User user = userRepo.findByUsername(username).get();
+
         Role role1 = roleRepo.findByRole(role);
         user.getRoles().add(role1);
     }

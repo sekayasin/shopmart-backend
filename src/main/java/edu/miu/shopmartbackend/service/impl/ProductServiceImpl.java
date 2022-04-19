@@ -45,12 +45,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(long id) {
-        Product product = getProductById(id);
-        Orders order = orderRepo.findFirstByProduct(product);
-
-        if(order != null) {
-            productRepo.deleteById(id);
-        }
+//        Product product = getProductById(id);
+//        Orders order = orderRepo.findFirstByProduct(product);
+//
+//        if(order != null) {
+//            productRepo.deleteById(id);
+//        }
     }
 
     @Override
@@ -60,8 +60,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Orders> getOrdersOfProduct(long id) {
-        Product product = getProductById(id);
-        return orderRepo.findAllByProduct(product);
+//        Product product = getProductById(id);
+//        return orderRepo.findAllByProduct(product);
+        return null;
     }
 
     @Override

@@ -23,6 +23,7 @@ public class RoleController {
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     public void addRoleToUser(@RequestBody RoleToUserDto roleToUserDto) {
+        System.out.println("add role...........");
         userService.addRoleToUser(roleToUserDto.getUsername(), roleToUserDto.getRole());
     }
 }

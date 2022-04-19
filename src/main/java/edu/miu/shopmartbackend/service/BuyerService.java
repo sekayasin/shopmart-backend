@@ -16,9 +16,9 @@ public interface BuyerService {
 //    List<Review> findReviewsByBuyerId(long id);//buyer
 
 
-    Address addAddressOfBuyer(Address address, long id);//buyer
+//    Address addAddressOfBuyer(Address address, long id);//buyer
+//
 
-    List<Address> getAddressesOfBuyer(long id);//buyer
 
     List<Product> findOrCreateShoppingCart(long id);//buyer
 

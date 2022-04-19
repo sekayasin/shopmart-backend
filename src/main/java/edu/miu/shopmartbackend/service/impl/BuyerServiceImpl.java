@@ -4,7 +4,6 @@ import edu.miu.shopmartbackend.model.Address;
 import edu.miu.shopmartbackend.model.Product;
 import edu.miu.shopmartbackend.model.ShoppingCart;
 import edu.miu.shopmartbackend.model.User;
-import edu.miu.shopmartbackend.repo.AddressRepo;
 import edu.miu.shopmartbackend.repo.ShoppingCartRepo;
 import edu.miu.shopmartbackend.repo.UserRepo;
 import edu.miu.shopmartbackend.service.BuyerService;
@@ -21,22 +20,22 @@ public class BuyerServiceImpl implements BuyerService {
     @Autowired
     private UserRepo userRepo;
 
-    @Autowired
-    private AddressRepo addressRepo;
 
     @Autowired
     private ShoppingCartRepo shoppingCartRepo;
 
-    @Override
-    public Address addAddressOfBuyer(Address address, long id) {
-        User buyer = userRepo.findById(id).orElse(null);
-        buyer.setBillingAddress(address);
-        return addressRepo.save(address);    }
+//    @Override
+//    public Address addAddressOfBuyer(Address address, long id) {
+//        User buyer = userRepo.findById(id).orElse(null);
+//        buyer.setBillingAddress(address);
+//        return userRepo.save(address);    }
+//
+//    @Override
+//    public List<Address> getAddressesOfBuyer(long id) {
+//        User buyer = userRepo.findById(id).orElse(null);
+//        return addressRepo.findAllByBuyer(buyer);    }
 
-    @Override
-    public List<Address> getAddressesOfBuyer(long id) {
-        User buyer = userRepo.findById(id).orElse(null);
-        return addressRepo.findAllByBuyer(buyer);    }
+
 
     @Override
     public List<Product> findOrCreateShoppingCart(long id) {

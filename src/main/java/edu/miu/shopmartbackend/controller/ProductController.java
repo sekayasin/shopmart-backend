@@ -29,8 +29,8 @@ public class ProductController {
     @Autowired
     UserService userService;
 
-    @PostMapping
-    public void saveProduct(@RequestBody Product product, long seller_id){
+    @PostMapping("/{seller_id}")
+    public void saveProduct(@RequestBody Product product,@PathVariable long seller_id){
         User seller = userService.getUserById(seller_id);
 
         if (seller.isAproved()) {

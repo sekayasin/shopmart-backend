@@ -15,11 +15,11 @@ public interface OrderRepo extends JpaRepository<Orders, Long> {
     @Query(value = "select o from Orders  o where o.user=:user")
      List<Orders> findAllByBuyer(User user);
 
-
-
-    Orders findFirstByProduct(Product product);
-
-    List<Orders> findAllByProduct(Product product);
+//
+//@Query(value="")
+//    Orders findFirstByProduct(Product product);
+//
+//    List<Orders> findAllByProduct(Product product);
 
 
 }

@@ -1,10 +1,8 @@
 package edu.miu.shopmartbackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -46,7 +44,7 @@ public class User {
     @OneToOne(mappedBy = "buyer")
     private ShoppingCart shoppingCart;
 
-    @OneToMany
+    @ManyToMany
     List<Role> roles;
 
     @OneToMany

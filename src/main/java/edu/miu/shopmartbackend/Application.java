@@ -35,13 +35,13 @@ public class Application {
             userService.saveRole(new Role(null, "BUYER"));
             userService.saveRole(new Role(null, "SELLER"));
 
-            userService.addUser(new UsernamePassDto("sekayasin", "pass123"));
-            userService.addUser(new UsernamePassDto("maha", "pass123"));
-            userService.addUser(new UsernamePassDto("badi", "pass123"));
+            userService.addUser(new UsernamePassDto("admin", "pass123"));
+            userService.addUser(new UsernamePassDto("buyer", "pass123"));
+            userService.addUser(new UsernamePassDto("seller", "pass123"));
 
-            userService.addRoleToUser("sekayasin","ADMIN");
-            userService.addRoleToUser("maha", "BUYER");
-            userService.addRoleToUser("badi", "SELLER");
+            userService.addRoleToUser("admin","ADMIN");
+            userService.addRoleToUser("buyer", "BUYER");
+            userService.addRoleToUser("seller", "SELLER");
         };
     }
 

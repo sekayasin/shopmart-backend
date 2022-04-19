@@ -41,7 +41,7 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    @PatchMapping("/{seller_id}")
+    @PatchMapping("/{seller_id}/approveseller")
     User approveSeller( @PathVariable long seller_id){
         return userService.approveSeller(seller_id);
     }

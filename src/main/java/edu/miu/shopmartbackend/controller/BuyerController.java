@@ -4,6 +4,7 @@ import edu.miu.shopmartbackend.model.Address;
 import edu.miu.shopmartbackend.model.Product;
 
 import edu.miu.shopmartbackend.service.BuyerService;
+import edu.miu.shopmartbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,32 +18,23 @@ public class BuyerController {
     @Autowired
     BuyerService buyerService;
 
+    @Autowired
+    UserService userService;
+
 
 //    @GetMapping("/{id}/orders")
 //    List<Orders> findBuyerOrdersById(long id){
 //
 //        return buyerService.(id);
 //    }
-//    @PostMapping("/{buyerId}/{productId}")
-//    Review addReviewByBuyerId(@RequestBody Review review, @PathVariable long buyerId, @PathVariable long productId){
-//        return buyerService.addReviewByBuyerId(review,buyerId,productId);
-//    }
+//
 //    @GetMapping("/{id}/reviews")
 //    List<Review> findReviewsByBuyerId(@PathVariable long id){
 //
 //        return buyerService.findReviewsByBuyerId(id);
 //    }
 
-    @PostMapping("/{id}/address")
-    Address addAddressToBuyer(@RequestBody Address address, @PathVariable long id) {
-        return buyerService.addAddressOfBuyer(address, id);
-    }
 
-    @GetMapping("/{id}/address")
-    List<Address> getAddressesOfBuyer(@PathVariable long id) {
-
-        return buyerService.getAddressesOfBuyer(id);
-    }
 
     @PatchMapping("/{id}/cart")
     List<Product> findOrCreateShoppingCart(@PathVariable long id) {
