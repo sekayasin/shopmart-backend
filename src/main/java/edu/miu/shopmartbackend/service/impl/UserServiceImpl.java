@@ -1,8 +1,10 @@
 package edu.miu.shopmartbackend.service.impl;
 
+import edu.miu.shopmartbackend.model.Review;
 import edu.miu.shopmartbackend.model.Role;
 import edu.miu.shopmartbackend.model.User;
 import edu.miu.shopmartbackend.model.dto.UsernamePassDto;
+import edu.miu.shopmartbackend.repo.ReviewRepo;
 import edu.miu.shopmartbackend.repo.RoleRepo;
 import edu.miu.shopmartbackend.repo.UserRepo;
 import edu.miu.shopmartbackend.service.UserService;
@@ -30,6 +32,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
+    private final ReviewRepo reviewRepo;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
@@ -85,6 +88,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User approveSeller(long id) {
-        return null;
+        User seller = getUserById(id);
+        seller.setAproved(true);
+        return userRepo.save(seller);    }
+
+    @Override
+    public Review approveReview(long review_id) {
+        Review review = reviewRepo.getById(review_id);
+        review.setApproved(true);
+        return reviewRepo.save(review);
     }
 }
+

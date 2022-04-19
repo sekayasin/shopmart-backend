@@ -1,5 +1,6 @@
 package edu.miu.shopmartbackend.controller;
 
+import edu.miu.shopmartbackend.model.Review;
 import edu.miu.shopmartbackend.model.User;
 import edu.miu.shopmartbackend.model.dto.UsernamePassDto;
 import edu.miu.shopmartbackend.service.UserService;
@@ -40,9 +41,16 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    User approveSeller(long id){
-        return null;
+    @PatchMapping("/{seller_id}")
+    User approveSeller( @PathVariable long seller_id){
+        return userService.approveSeller(seller_id);
     }
 
-
+    @PatchMapping("/{seller_id}")
+    Review approveReview(@PathVariable long review_id){
+        return userService.approveReview(review_id);
+    }
 }
+
+
+

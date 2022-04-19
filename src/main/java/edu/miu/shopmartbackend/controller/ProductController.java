@@ -2,9 +2,11 @@ package edu.miu.shopmartbackend.controller;
 
 import edu.miu.shopmartbackend.model.Orders;
 import edu.miu.shopmartbackend.model.Product;
+import edu.miu.shopmartbackend.model.User;
 import edu.miu.shopmartbackend.service.OrderService;
 import edu.miu.shopmartbackend.service.ProductService;
 import edu.miu.shopmartbackend.service.ReviewService;
+import edu.miu.shopmartbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +26,22 @@ public class ProductController {
     @Autowired
     ReviewService reviewService;
 
+    @Autowired
+    UserService userService;
+
     @PostMapping
-    public void saveProduct(@RequestBody Product product){
-        productService.saveProduct(product);
+    public void saveProduct(@RequestBody Product product, long seller_id){
+        User seller = userService.getUserById(seller_id);
+
+        if (seller.isAproved()) {
+            Product newProduct = new Product();
+            newProduct.setProductName(product.getProductName());
+            newProduct.setDescription(product.getDescription());
+            newProduct.setPrice(product.getPrice());
+            newProduct.setReviews(null);
+             productService.saveProduct(newProduct, seller_id);
+        }
+
 
     }
 

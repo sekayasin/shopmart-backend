@@ -10,4 +10,7 @@ public interface ReviewService {
     Review getReviewById(long id);
 
     Review approveReview(long id);
+
+    Review addReviewByBuyerId(Review review, long id, long productId);//review
+
 }

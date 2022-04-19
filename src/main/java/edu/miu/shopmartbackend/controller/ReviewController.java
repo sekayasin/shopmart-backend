@@ -27,8 +27,10 @@ public class ReviewController {
         return reviewService.getReviewById(id);
     }
 
-    @PatchMapping("/{id}/approve")
-    Review approveReview(@PathVariable long id){
-        return reviewService.approveReview(id);
+    @PostMapping("/{buyerId}/{productId}")
+    Review addReviewByBuyerId(@RequestBody Review review, @PathVariable long buyerId, @PathVariable long productId){
+        return reviewService.addReviewByBuyerId(review,buyerId,productId);
     }
+
+
 }

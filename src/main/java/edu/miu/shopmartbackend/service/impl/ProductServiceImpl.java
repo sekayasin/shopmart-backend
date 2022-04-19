@@ -3,9 +3,11 @@ package edu.miu.shopmartbackend.service.impl;
 import edu.miu.shopmartbackend.model.Orders;
 import edu.miu.shopmartbackend.model.Product;
 import edu.miu.shopmartbackend.model.Review;
+import edu.miu.shopmartbackend.model.User;
 import edu.miu.shopmartbackend.repo.OrderRepo;
 import edu.miu.shopmartbackend.repo.ProductRepo;
 import edu.miu.shopmartbackend.repo.ReviewRepo;
+import edu.miu.shopmartbackend.repo.UserRepo;
 import edu.miu.shopmartbackend.service.ProductService;
 import org.aspectj.lang.annotation.Around;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,14 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     ReviewRepo reviewRepo;
 
+    @Autowired
+    UserRepo userRepo;
+
     @Override
-    public void saveProduct(Product product) {productRepo.save(product);}
+    public void saveProduct(Product product, long seller_id) {
+        User seller = userRepo.getUserById(seller_id);
+        product.setUser(seller);
+         productRepo.save(product);      }
 
     @Override
     public List<Product> getAllProducts() {return productRepo.findAll();}
