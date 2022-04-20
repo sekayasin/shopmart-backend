@@ -46,7 +46,8 @@ public class User {
     @OneToOne(mappedBy = "buyer")
     private ShoppingCart shoppingCart;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable
     List<Role> roles;
 
     @OneToMany

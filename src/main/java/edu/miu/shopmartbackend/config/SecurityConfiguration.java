@@ -14,9 +14,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -35,17 +35,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFilter.setFilterProcessesUrl("/api/v1/authenticate");
+        http.cors();
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/api/v1/authenticate/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/v1/authenticate/**", "/api/v1/users/token/refresh/**").permitAll();
         http.authorizeRequests().antMatchers("/api/v1/roles/**").hasAuthority("ADMIN");
         http.authorizeRequests().antMatchers("/api/v1/users/**").hasAuthority("ADMIN");
         http.authorizeRequests().antMatchers( "/api/v1/reviews/**").hasAuthority("BUYER");
         http.authorizeRequests().antMatchers( "/api/v1/address/**").hasAuthority("BUYER");
         http.authorizeRequests().antMatchers( "/api/v1/buyers/**").hasAuthority("BUYER");
-
         http.authorizeRequests().antMatchers("/api/v1/products/**").hasAuthority("SELLER");
-
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -56,4 +55,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+//    Enable cors globally
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
+    }
+
 }
