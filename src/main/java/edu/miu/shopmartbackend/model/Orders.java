@@ -1,7 +1,6 @@
 package edu.miu.shopmartbackend.model;
 
 import edu.miu.shopmartbackend.enums.OrderStatus;
-import edu.miu.shopmartbackend.model.users.Buyer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,14 +17,15 @@ import java.util.List;
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
     @DateTimeFormat(style = "yyyy-mm-dd")
     private LocalDate orderDate;
     private OrderStatus orderStatus;
     private double totalOrderPrice;
 
     @ManyToOne
-    private Buyer buyer;
+    private User user;
 
     @OneToMany
     private List<Product> products;

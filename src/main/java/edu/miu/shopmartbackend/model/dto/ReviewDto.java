@@ -15,6 +15,4 @@ public class ReviewDto {
     @JsonProperty("review_content")
     private String content;
 
-    @JsonProperty("is_approved")
-    private boolean isApproved;
 }

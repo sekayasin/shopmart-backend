@@ -1,19 +1,20 @@
 package edu.miu.shopmartbackend.controller;
 
-import edu.miu.shopmartbackend.model.users.User;
+import edu.miu.shopmartbackend.model.Review;
+import edu.miu.shopmartbackend.model.User;
+import edu.miu.shopmartbackend.model.dto.UsernamePassDto;
 import edu.miu.shopmartbackend.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    @Autowired
-    UserService userService;
-
+    private final UserService userService;
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -31,9 +32,7 @@ public class UserController {
     }
 
     @PostMapping
-    public void addUser(@RequestBody User user) {
-        System.out.println(user + "##########controller");
-
+    public void addUser(@RequestBody UsernamePassDto user) {
          userService.addUser(user);
     }
 
@@ -42,5 +41,16 @@ public class UserController {
         userService.deleteUser(id);
     }
 
+    @PatchMapping("/{seller_id}/approveseller")
+    User approveSeller( @PathVariable long seller_id){
+        return userService.approveSeller(seller_id);
+    }
 
+    @PatchMapping("/{seller_id}")
+    Review approveReview(@PathVariable long review_id){
+        return userService.approveReview(review_id);
+    }
 }
+
+
+

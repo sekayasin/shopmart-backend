@@ -22,6 +22,6 @@ public class ProductDto {
     @JsonProperty("product_description")
     private String description;
 
-    @JsonProperty("is_purchased")
-    private boolean isPurchased;
+//    @JsonProperty("is_purchased")
+//    private boolean isPurchased;
 }
