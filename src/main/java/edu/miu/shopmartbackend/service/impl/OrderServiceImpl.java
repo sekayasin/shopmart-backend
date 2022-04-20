@@ -1,12 +1,15 @@
 package edu.miu.shopmartbackend.service.impl;
 
 import edu.miu.shopmartbackend.enums.OrderStatus;
-import edu.miu.shopmartbackend.model.Orders;
+import edu.miu.shopmartbackend.model.Order;
 import edu.miu.shopmartbackend.model.Product;
 import edu.miu.shopmartbackend.model.User;
+import edu.miu.shopmartbackend.model.dto.OrderDto;
 import edu.miu.shopmartbackend.repo.OrderRepo;
 import edu.miu.shopmartbackend.service.OrderService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,13 +20,16 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderRepo orderRepo;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @Override
-    public Orders findOrderById(long id) {
-        return orderRepo.findById(id).get();
+    public OrderDto findOrderById(long id) {
+        return modelMapper.map(orderRepo.findById(id).get(), OrderDto.class);
     }
 
     @Override
-    public Orders saveOrder(Orders order) {
+    public Order saveOrder(Order order) {
         double totalPrice=0;
         List<Product> products = order.getProducts();
         for(Product p : products){
@@ -35,32 +41,32 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Orders placeOrder(long id) {
-        Orders order = findOrderById(id);
+    public OrderDto placeOrder(long id) {
+        Order order = modelMapper.map(findOrderById(id), Order.class);
         if (order.getOrderStatus() == OrderStatus.CREATED){
             order.setOrderStatus(OrderStatus.ORDERED);
         }
         //void makePayment()
 
-        return orderRepo.save(order);
+        return modelMapper.map(orderRepo.save(order), OrderDto.class);
     }
 
     @Override
-    public Orders shipOrder(long orderId) {
-        Orders orders = findOrderById(orderId);
+    public OrderDto shipOrder(long orderId) {
+        Order orders = modelMapper.map(findOrderById(orderId), Order.class);
         List<Product> products = orders.getProducts();
        products.forEach(p -> p.setPurchased(true));
 
-        Orders order = findOrderById(orderId);
+        Order order = modelMapper.map(findOrderById(orderId), Order.class);
         if (order.getOrderStatus() == OrderStatus.ORDERED){
             order.setOrderStatus(OrderStatus.SHIPPED);
         }
-        return orderRepo.save(order);
+        return modelMapper.map(orderRepo.save(order), OrderDto.class);
     }
 
     @Override
-    public Orders cancelOrder(long orderId) {
-        Orders orders = findOrderById(orderId);
+    public Order cancelOrder(long orderId) {
+        Order orders = modelMapper.map(findOrderById(orderId), Order.class);
         List<Product> products = orders.getProducts();
         products.forEach(p -> p.setPurchased(false));
         if(orders.getOrderStatus() == OrderStatus.ORDERED){
@@ -71,8 +77,8 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Orders deliverOrder(long orderId) {
-        Orders order = findOrderById(orderId);
+    public OrderDto deliverOrder(long orderId) {
+        Order order = modelMapper.map(findOrderById(orderId), Order.class);
         if (order.getOrderStatus() == OrderStatus.SHIPPED){
             order.setOrderStatus(OrderStatus.DELIVERED);
             User user = order.getUser();
@@ -80,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
            user.setPoints(points);
            order.setUser(user);
         }
-        return orderRepo.save(order);
+        return modelMapper.map(orderRepo.save(order), OrderDto.class);
     }
 
 }

@@ -5,14 +5,19 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.miu.shopmartbackend.model.Product;
 import edu.miu.shopmartbackend.model.Review;
 import edu.miu.shopmartbackend.model.Role;
 import edu.miu.shopmartbackend.model.User;
+import edu.miu.shopmartbackend.model.dto.ProductDto;
+import edu.miu.shopmartbackend.model.dto.ReviewDto;
+import edu.miu.shopmartbackend.model.dto.UserDto;
 import edu.miu.shopmartbackend.model.dto.UsernamePassDto;
 import edu.miu.shopmartbackend.repo.ReviewRepo;
 import edu.miu.shopmartbackend.repo.RoleRepo;
 import edu.miu.shopmartbackend.repo.UserRepo;
 import edu.miu.shopmartbackend.service.UserService;
+import edu.miu.shopmartbackend.util.ListMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -44,8 +49,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
     private final ReviewRepo reviewRepo;
-    private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    ListMapper<User, UserDto> listMapperToDto;
+
+    @Autowired
+    ModelMapper modelMapper;
+
+
 
 
     @Override
@@ -60,18 +72,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getUserByUsername(String username) {
-        return userRepo.findByUsername(username).get();
+    public UserDto getUserByUsername(String username) {
+        return modelMapper.map(userRepo.findByUsername(username).get(), UserDto.class);
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepo.findAll();
+    public List<UserDto> getAllUsers() {
+        return (List<UserDto>)listMapperToDto.mapList(userRepo.findAll(), new UserDto());
     }
 
     @Override
-    public User getUserById(long id) {
-        return userRepo.findById(id).orElseThrow();
+    public UserDto getUserById(long id) {
+        return modelMapper.map(userRepo.findById(id).get(), UserDto.class);
     }
 
     @Override
@@ -100,16 +112,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User approveSeller(long id) {
-        User seller = getUserById(id);
+    public UserDto approveSeller(long id) {
+        User seller = modelMapper.map(getUserById(id), User.class);
         seller.setAproved(true);
-        return userRepo.save(seller);    }
+        return modelMapper.map(userRepo.save(seller), UserDto.class);    }
 
     @Override
-    public Review approveReview(long review_id) {
-        Review review = reviewRepo.getById(review_id);
+    public ReviewDto approveReview(long review_id) {
+        Review review = modelMapper.map(reviewRepo.getById(review_id), Review.class);
         review.setApproved(true);
-        return reviewRepo.save(review);
+        return modelMapper.map(reviewRepo.save(review), ReviewDto.class);
     }
 
     @Override
