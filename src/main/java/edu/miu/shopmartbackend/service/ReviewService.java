@@ -1,13 +1,14 @@
 package edu.miu.shopmartbackend.service;
 
 import edu.miu.shopmartbackend.model.Review;
+import edu.miu.shopmartbackend.model.dto.ReviewDto;
 
 import java.util.List;
 
 public interface ReviewService {
-    List<Review> getAllReviews();
+    List<ReviewDto> getAllReviews();
 
-    Review getReviewById(long id);
+    ReviewDto getReviewById(long id);
 
     Review approveReview(long id);
 

@@ -1,6 +1,6 @@
 package edu.miu.shopmartbackend.service;
 
-import edu.miu.shopmartbackend.model.Orders;
+import edu.miu.shopmartbackend.model.Order;
 import edu.miu.shopmartbackend.model.Product;
 import edu.miu.shopmartbackend.model.dto.ProductDto;
 
@@ -15,9 +15,7 @@ public interface ProductService {
 
     void deleteProduct(long id);
 
-    Product getProductById(long id);
-
-    List<Orders> getOrdersOfProduct(long id);
+    ProductDto getProductById(long id);
 
     void updateProduct(Product product, long id);
 }

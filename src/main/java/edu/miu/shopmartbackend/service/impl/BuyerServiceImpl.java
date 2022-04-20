@@ -87,6 +87,8 @@ public class BuyerServiceImpl implements BuyerService {
         @Override
         public Boolean isFollowing ( long buyer_id, long seller_id){
             User buyer = userRepo.getUserById(buyer_id);
+            System.out.println("inside if.....isFollowing" + buyer.isFollowing());
+
             if(buyer == null )
                 return null;
 
@@ -100,6 +102,8 @@ public class BuyerServiceImpl implements BuyerService {
                     buyer.setFollowing(true);
                     return true;
                 }
+                System.out.println("inside if..2...isFollowing" + buyer.isFollowing());
+
             }
 
             return false;

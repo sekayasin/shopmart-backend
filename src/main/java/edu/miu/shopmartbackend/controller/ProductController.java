@@ -1,6 +1,6 @@
 package edu.miu.shopmartbackend.controller;
 
-import edu.miu.shopmartbackend.model.Orders;
+import edu.miu.shopmartbackend.model.Order;
 import edu.miu.shopmartbackend.model.Product;
 import edu.miu.shopmartbackend.model.User;
 import edu.miu.shopmartbackend.model.dto.ProductDto;
@@ -36,7 +36,7 @@ public class ProductController {
 
     @PostMapping("/{seller_id}")
     public void saveProduct(@RequestBody ProductDto productDto, @PathVariable long seller_id){
-        User seller = userService.getUserById(seller_id);
+        User seller = modelMapper.map(userService.getUserById(seller_id), User.class);
 
         if (seller.isAproved()) {
             Product product = modelMapper.map(productDto, Product.class);
@@ -57,7 +57,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable("id") long id){
+    public ProductDto getProductById(@PathVariable("id") long id){
         return productService.getProductById(id);
     }
 
@@ -73,9 +73,5 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
-    @GetMapping("/{id}/orders")
-    public List<Orders> getOrdersOfProduct(@PathVariable("id") long id){
-        return productService.getOrdersOfProduct(id);
-    }
 
 }

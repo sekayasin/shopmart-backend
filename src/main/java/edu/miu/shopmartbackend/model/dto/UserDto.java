@@ -22,9 +22,8 @@ public class UserDto {
     @JsonProperty("user_name")
     private String userName;
 
-    @JsonProperty("password")
-    private String password;
-
     @JsonProperty("points")
     private int points;
+    private boolean isAproved;
+
 }

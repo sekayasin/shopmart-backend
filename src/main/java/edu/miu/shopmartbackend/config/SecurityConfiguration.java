@@ -18,6 +18,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import static org.springframework.http.HttpMethod.*;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -44,7 +46,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers( "/api/v1/reviews/**").hasAuthority("BUYER");
         http.authorizeRequests().antMatchers( "/api/v1/address/**").hasAuthority("BUYER");
         http.authorizeRequests().antMatchers( "/api/v1/buyers/**").hasAuthority("BUYER");
+        http.authorizeRequests().antMatchers("GET, DELETE, PATCH","/api/v1/orders/**").hasAuthority("SELLER"); // check??
         http.authorizeRequests().antMatchers("/api/v1/products/**").hasAuthority("SELLER");
+        http.authorizeRequests().antMatchers(GET,"/api/v1/products/**").hasAuthority("BUYER");
+        http.authorizeRequests().antMatchers("/api/v1/orders/**").hasRole("BUYER");
+
+
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

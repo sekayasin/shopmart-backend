@@ -1,6 +1,8 @@
 package edu.miu.shopmartbackend.service;
 
 import edu.miu.shopmartbackend.model.*;
+import edu.miu.shopmartbackend.model.dto.ReviewDto;
+import edu.miu.shopmartbackend.model.dto.UserDto;
 import edu.miu.shopmartbackend.model.dto.UsernamePassDto;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -11,11 +13,11 @@ import java.util.List;
 
 public interface UserService {
 
-    User getUserByUsername(String username);
+    UserDto getUserByUsername(String username);
 
-   List<User> getAllUsers();
+   List<UserDto> getAllUsers();
 
-    User getUserById(long id);
+    UserDto getUserById(long id);
 
     void addUser(UsernamePassDto user);
 
@@ -25,9 +27,9 @@ public interface UserService {
 
     void addRoleToUser(String username, String role);
 
-    User approveSeller(long id);
+    UserDto approveSeller(long id);
 
-    Review approveReview( @PathVariable long review_id);
+    ReviewDto approveReview(@PathVariable long review_id);
 
     void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException;
 

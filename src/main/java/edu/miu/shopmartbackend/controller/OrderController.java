@@ -1,10 +1,13 @@
 package edu.miu.shopmartbackend.controller;
 
-import edu.miu.shopmartbackend.model.Orders;
+import edu.miu.shopmartbackend.model.Order;
+import edu.miu.shopmartbackend.model.dto.OrderDto;
 import edu.miu.shopmartbackend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.security.RolesAllowed;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -14,39 +17,43 @@ public class OrderController {
     OrderService orderService;
 
     @ResponseStatus(HttpStatus.CREATED)
+    @RolesAllowed("BUYER")
     @PostMapping
-    Orders saveOrder(@RequestBody Orders orders){
+    Order saveOrder(@RequestBody Order orders){
 
         return orderService.saveOrder(orders);
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @RolesAllowed("BUYER")
     @GetMapping("/{id}")
-    Orders findOrderById(@PathVariable("id") long id){
+    OrderDto findOrderById(@PathVariable("id") long id){
         return orderService.findOrderById(id);
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @RolesAllowed("BUYER")
     @DeleteMapping("/{orderId}")
-    Orders cancelOrder(@PathVariable long orderId){
+    Order cancelOrder(@PathVariable long orderId){
         return orderService.cancelOrder(orderId);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{orderId}/ship")
-    Orders shipOrder(@PathVariable("orderId") long orderId){
+    OrderDto shipOrder(@PathVariable("orderId") long orderId){
         return orderService.shipOrder(orderId);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{orderId}/deliver")
-    Orders deliverOrder(@PathVariable("orderId") long orderId){
+    OrderDto deliverOrder(@PathVariable("orderId") long orderId){
         return orderService.deliverOrder(orderId);
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @RolesAllowed("BUYER")
     @PatchMapping("/{id}/placed")
-    Orders placeOrder (@PathVariable("id") long id){
+    OrderDto placeOrder (@PathVariable("id") long id){
         return orderService.placeOrder(id);
     }
 }

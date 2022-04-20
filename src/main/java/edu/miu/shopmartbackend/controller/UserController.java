@@ -2,6 +2,8 @@ package edu.miu.shopmartbackend.controller;
 
 import edu.miu.shopmartbackend.model.Review;
 import edu.miu.shopmartbackend.model.User;
+import edu.miu.shopmartbackend.model.dto.ReviewDto;
+import edu.miu.shopmartbackend.model.dto.UserDto;
 import edu.miu.shopmartbackend.model.dto.UsernamePassDto;
 import edu.miu.shopmartbackend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,17 +23,17 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/name")
-    public User getUserByUsername(@RequestParam("username") String username) {
+    public UserDto getUserByUsername(@RequestParam("username") String username) {
         return userService.getUserByUsername(username);
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable long id) {
+    public UserDto getUserById(@PathVariable long id) {
         return userService.getUserById(id);
     }
 
@@ -46,12 +48,12 @@ public class UserController {
     }
 
     @PatchMapping("/{seller_id}/approveseller")
-    User approveSeller( @PathVariable long seller_id){
+    UserDto approveSeller( @PathVariable long seller_id){
         return userService.approveSeller(seller_id);
     }
 
     @PatchMapping("/{seller_id}")
-    Review approveReview(@PathVariable long review_id){
+    ReviewDto approveReview(@PathVariable long review_id){
         return userService.approveReview(review_id);
     }
 

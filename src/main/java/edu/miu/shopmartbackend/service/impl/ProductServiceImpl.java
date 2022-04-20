@@ -1,6 +1,6 @@
 package edu.miu.shopmartbackend.service.impl;
 
-import edu.miu.shopmartbackend.model.Orders;
+import edu.miu.shopmartbackend.model.Order;
 import edu.miu.shopmartbackend.model.Product;
 import edu.miu.shopmartbackend.model.Review;
 import edu.miu.shopmartbackend.model.User;
@@ -11,13 +11,11 @@ import edu.miu.shopmartbackend.repo.ReviewRepo;
 import edu.miu.shopmartbackend.repo.UserRepo;
 import edu.miu.shopmartbackend.service.ProductService;
 import edu.miu.shopmartbackend.util.ListMapper;
-import org.aspectj.lang.annotation.Around;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -37,6 +35,9 @@ public class ProductServiceImpl implements ProductService {
     UserRepo userRepo;
 
     @Autowired
+    ModelMapper modelMapper;
+
+    @Autowired
     ListMapper<Product, ProductDto> listMapperToDto;
 
     @Override
@@ -52,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(long id) {
-        Product product = getProductById(id);
+        Product product = modelMapper.map(getProductById(id), Product.class);
         if(product.isPurchased()){
             throw new RuntimeException();
         }
@@ -61,20 +62,13 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Product getProductById(long id) {
-        return productRepo.findById(id).get();
-    }
-
-    @Override
-    public List<Orders> getOrdersOfProduct(long id) {
-//        Product product = getProductById(id);
-//        return orderRepo.findAllByProduct(product);
-        return null;
+    public ProductDto getProductById(long id) {
+        return modelMapper.map(productRepo.findById(id).get(), ProductDto.class);
     }
 
     @Override
     public void updateProduct(Product product, long id) {
-        Product toBeUpdated = getProductById(id);
+        Product toBeUpdated =modelMapper.map (getProductById(id), Product.class);
         productRepo.save(toBeUpdated);
     }
 
@@ -82,7 +76,7 @@ public class ProductServiceImpl implements ProductService {
 
     @GetMapping("/{id}/reviews")
     public List<Review> getReviewsOfProduct(@PathVariable("id") long id){
-        Product product = getProductById(id);
+        Product product = modelMapper.map (getProductById(id), Product.class);
         return reviewRepo.findAllByProduct(product);
     }
 

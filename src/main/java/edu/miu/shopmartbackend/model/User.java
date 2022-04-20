@@ -51,7 +51,7 @@ public class User {
     List<Role> roles;
 
     @OneToMany
-    private List<Orders> orders;
+    private List<Order> orders;
 
     @OneToMany
     private List<Review> reviews;
