@@ -4,11 +4,13 @@ import edu.miu.shopmartbackend.model.Orders;
 import edu.miu.shopmartbackend.model.Product;
 import edu.miu.shopmartbackend.model.Review;
 import edu.miu.shopmartbackend.model.User;
+import edu.miu.shopmartbackend.model.dto.ProductDto;
 import edu.miu.shopmartbackend.repo.OrderRepo;
 import edu.miu.shopmartbackend.repo.ProductRepo;
 import edu.miu.shopmartbackend.repo.ReviewRepo;
 import edu.miu.shopmartbackend.repo.UserRepo;
 import edu.miu.shopmartbackend.service.ProductService;
+import edu.miu.shopmartbackend.util.ListMapper;
 import org.aspectj.lang.annotation.Around;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     UserRepo userRepo;
 
+    @Autowired
+    ListMapper<Product, ProductDto> listMapperToDto;
+
     @Override
     public void saveProduct(Product product, long seller_id) {
         User seller = userRepo.getUserById(seller_id);
@@ -41,17 +46,19 @@ public class ProductServiceImpl implements ProductService {
          productRepo.save(product);      }
 
     @Override
-    public List<Product> getAllProducts() {return productRepo.findAll();}
+    public List<ProductDto> getAllProducts() {
+        return (List<ProductDto>) listMapperToDto.mapList(productRepo.findAll(), new ProductDto());
+    }
 
     @Override
     public void deleteProduct(long id) {
-//        Product product = getProductById(id);
-//        Orders order = orderRepo.findFirstByProduct(product);
-//
-//        if(order != null) {
-//            productRepo.deleteById(id);
-//        }
-    }
+        Product product = getProductById(id);
+        if(product.isPurchased()){
+            throw new RuntimeException();
+        }
+            productRepo.deleteById(id);
+      }
+
 
     @Override
     public Product getProductById(long id) {

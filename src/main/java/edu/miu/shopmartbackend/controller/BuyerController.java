@@ -1,8 +1,6 @@
 package edu.miu.shopmartbackend.controller;
 
-import edu.miu.shopmartbackend.model.Address;
 import edu.miu.shopmartbackend.model.Product;
-
 import edu.miu.shopmartbackend.service.BuyerService;
 import edu.miu.shopmartbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +18,6 @@ public class BuyerController {
 
     @Autowired
     UserService userService;
-
-
-//    @GetMapping("/{id}/orders")
-//    List<Orders> findBuyerOrdersById(long id){
-//
-//        return buyerService.(id);
-//    }
-//
-//    @GetMapping("/{id}/reviews")
-//    List<Review> findReviewsByBuyerId(@PathVariable long id){
-//
-//        return buyerService.findReviewsByBuyerId(id);
-//    }
-
 
 
     @PatchMapping("/{id}/cart")
@@ -55,20 +39,20 @@ public class BuyerController {
     }
 
 
-//    @PatchMapping("{buyer_id}/follow")
-//    List<Seller> followSeller(@PathVariable("buyer_id") long id, @RequestBody Seller seller){
-//
-//        return buyerService.followSeller(id, seller);
-//    }
-//    @PatchMapping("/{buyer_id}/{seller_id}/unfollow")
-//    List<Seller> unFollowSeller(@PathVariable long buyer_id, @PathVariable long seller_id){
-//
-//        return buyerService.unFollowSeller(buyer_id, seller_id);
-//    }
-//
-//    @PatchMapping("/{buyer_id}/{seller_id}/check")
-//    Boolean isFollowing(@PathVariable long buyer_id, @PathVariable long seller_id){
-//
-//        return buyerService.isFollowing(buyer_id, seller_id);
-//    }
+    @PatchMapping("{buyer_id}/{seller_id}/follow")
+   void followSeller(@PathVariable("buyer_id") long buyer_id, @PathVariable long seller_id){
+
+         buyerService.followSeller(buyer_id, seller_id);
+    }
+    @PatchMapping("/{buyer_id}/{seller_id}/unfollow")
+   void unFollowSeller(@PathVariable long buyer_id, @PathVariable long seller_id){
+
+         buyerService.unFollowSeller(buyer_id, seller_id);
+    }
+
+    @PatchMapping("/{buyer_id}/{seller_id}/check")
+    Boolean isFollowing(@PathVariable long buyer_id, @PathVariable long seller_id){
+
+        return buyerService.isFollowing(buyer_id, seller_id);
+    }
 }

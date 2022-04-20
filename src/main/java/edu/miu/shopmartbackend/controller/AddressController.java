@@ -32,8 +32,8 @@ public class AddressController {
     }
 
     @GetMapping("/{buyer_id}/shipping")
-    List<Address> getBuyerShippingAddress(@PathVariable long id) {
+    List<Address> getBuyerShippingAddress(@PathVariable long buyer_id) {
 
-        return addressService.getBuyerShippingAddress(id);
+        return addressService.getBuyerShippingAddress(buyer_id);
     }
 }

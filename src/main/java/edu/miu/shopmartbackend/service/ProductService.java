@@ -2,6 +2,7 @@ package edu.miu.shopmartbackend.service;
 
 import edu.miu.shopmartbackend.model.Orders;
 import edu.miu.shopmartbackend.model.Product;
+import edu.miu.shopmartbackend.model.dto.ProductDto;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface ProductService {
 
     public void saveProduct(Product product, long seller_id);
 
-    List<Product> getAllProducts();
+    List<ProductDto> getAllProducts();
 
     void deleteProduct(long id);
 

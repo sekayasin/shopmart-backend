@@ -22,6 +22,8 @@ public class User {
     private String email;
     private int points;
     private boolean isAproved;
+    private boolean isFollowing;
+
 
     @Embedded
     @AttributeOverrides({
@@ -60,5 +62,5 @@ public class User {
     private List<Follow> followers;
 
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL)
-    private List<Follow> following;
+    private List<Follow> followings;
 }
