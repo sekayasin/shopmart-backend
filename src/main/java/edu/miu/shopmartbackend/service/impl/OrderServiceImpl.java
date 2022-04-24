@@ -8,6 +8,7 @@ import edu.miu.shopmartbackend.model.User;
 import edu.miu.shopmartbackend.model.dto.OrderDto;
 import edu.miu.shopmartbackend.repo.OrderRepo;
 import edu.miu.shopmartbackend.repo.UserRepo;
+import edu.miu.shopmartbackend.service.InvoiceService;
 import edu.miu.shopmartbackend.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    InvoiceService invoiceService;
 
     @Override
     public OrderDto findOrderById(long order_id) {
@@ -52,6 +56,7 @@ public class OrderServiceImpl implements OrderService {
             totalPrice += p.getPrice();
         }
 
+        invoiceService.payToOrder(totalPrice);
         customerOrder.setTotalOrderPrice(totalPrice);
 
         return modelMapper.map(orderRepo.save(customerOrder), OrderDto.class);

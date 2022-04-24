@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,8 +18,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "* product name is required")
     private String productName;
-    private double price;
+
+@DecimalMin(value = "0.1")
+private double price;
     private String description;
     private boolean isPurchased;
 

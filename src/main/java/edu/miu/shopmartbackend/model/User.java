@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @Entity
@@ -17,8 +18,16 @@ public class User {
     private Long id;
     private String firstname;
     private String lastname;
+
+//    @Column(nullable=false)
+//    @NotNull(message = "* userName is required")
     private String username;
+
+//    @Column(nullable=false)
+//    @NotNull(message = "* password is required")
     private String password;
+
+    @Email(message="{errors.invalid_email}")
     private String email;
     private int points;
     private boolean isAproved;

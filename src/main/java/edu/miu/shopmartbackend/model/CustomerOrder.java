@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -19,6 +20,7 @@ public class CustomerOrder {
     private Long id;
 
     @DateTimeFormat(style = "yyyy-mm-dd")
+//    @NotNull
     private LocalDate orderDate;
     private OrderStatus orderStatus;
     private double totalOrderPrice;
