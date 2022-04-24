@@ -15,10 +15,10 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Product> products;
 
-    @OneToOne
-    private User buyer;
+//    @OneToOne
+//    private User buyer;
 
 }

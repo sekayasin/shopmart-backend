@@ -21,9 +21,9 @@ public class Product {
     private boolean isPurchased;
 
     //seller
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User seller;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<Review> reviews;
 }

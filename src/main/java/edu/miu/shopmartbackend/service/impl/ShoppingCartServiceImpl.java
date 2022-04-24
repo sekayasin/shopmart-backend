@@ -35,18 +35,19 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         else{
             return null;
         }
-        shoppingCart.setBuyer(buyer);
+        buyer.setShoppingCart(shoppingCart);
+//        shoppingCart.setBuyer(buyer);
         List<Product> products = new ArrayList<>();
         shoppingCart.setProducts(products);
         return shoppingCartRepo.save(shoppingCart);
 
     }
 
-    @Override
-    public ShoppingCart getShoppingCart(long buyer_id) {
-       // User buyer = userRepo.getUserById(buyer_id);
-        return shoppingCartRepo.getShoppingCartByBuyerId(buyer_id);
-    }
+//    @Override
+//    public ShoppingCart getShoppingCartByBuyerId(long buyer_id) {
+//       // User buyer = userRepo.getUserById(buyer_id);
+//        return shoppingCartRepo.getShoppingCartByBuyerId(buyer_id);
+//    }
 
     @Override
     public ShoppingCart getShoppingCartById(long cart_id) {

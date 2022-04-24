@@ -17,13 +17,13 @@ public class ShoppingCartController {
         return shoppingCartService.createShoppingCart(buyer_id);
     }
 
-    @GetMapping("/{buyer_id}")
-    public ShoppingCart getShoppingCart(@PathVariable long buyer_id) {
-       return shoppingCartService.getShoppingCart(buyer_id);
-    }
+//    @GetMapping("/{buyer_id}")
+//    public ShoppingCart getShoppingCartByBuyerId(@PathVariable long buyer_id) {
+//       return shoppingCartService.getShoppingCartByBuyerId(buyer_id);
+//    }
 
     @GetMapping("/{cart_id}/cart")
-    public ShoppingCart getShoppingCartById(long cart_id){
+    public ShoppingCart getShoppingCartById(@PathVariable long cart_id){
         return shoppingCartService.getShoppingCartById(cart_id);
     }
 

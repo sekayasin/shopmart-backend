@@ -9,7 +9,7 @@ public interface ShoppingCartService {
 
     ShoppingCart createShoppingCart(long user_id);
 
-    ShoppingCart getShoppingCart(long buyer_id);
+//    ShoppingCart getShoppingCartByBuyerId(long buyer_id);
 
     ShoppingCart getShoppingCartById(long cart_id);
 
