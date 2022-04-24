@@ -5,6 +5,8 @@ import edu.miu.shopmartbackend.model.User;
 import edu.miu.shopmartbackend.model.dto.ReviewDto;
 import edu.miu.shopmartbackend.model.dto.UserDto;
 import edu.miu.shopmartbackend.model.dto.UsernamePassDto;
+import edu.miu.shopmartbackend.service.BuyerService;
+import edu.miu.shopmartbackend.service.SellerService;
 import edu.miu.shopmartbackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,10 +23,22 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final SellerService sellerService;
+    private final BuyerService buyerService;
 
     @GetMapping
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/sellers")
+    public List<UserDto> getAllSellers() {
+        return userService.getAllSellers();
+    }
+
+    @GetMapping("/buyers")
+    public List<UserDto> getAllBuyers() {
+        return userService.getAllBuyers();
     }
 
     @GetMapping("/name")

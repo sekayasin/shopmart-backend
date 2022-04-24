@@ -82,6 +82,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public List<UserDto> getAllSellers() {
+        return (List<UserDto>) listMapperToDto.mapList(userRepo.findAllByRole("SELLER"), new UserDto());
+    }
+
+    @Override
+    public List<UserDto> getAllBuyers() {
+        return (List<UserDto>) listMapperToDto.mapList(userRepo.findAllByRole("BUYER"), new UserDto());
+    }
+
+    @Override
     public UserDto getUserById(long id) {
         return modelMapper.map(userRepo.findById(id).get(), UserDto.class);
     }
