@@ -1,21 +1,29 @@
 package edu.miu.shopmartbackend.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-public class ShoppingCart {
+public class Invoice {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Product> products;
+    @NotNull(message = "* card number is required")
+    @Size(min = 8)
+    private String cardNumber;
+
+    @ManyToOne
+    private User user;
 
 }

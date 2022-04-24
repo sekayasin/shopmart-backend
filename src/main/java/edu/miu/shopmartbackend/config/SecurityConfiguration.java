@@ -51,7 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("GET, DELETE, PATCH","/api/v1/orders/**").hasAuthority("SELLER"); // check??
         http.authorizeRequests().antMatchers("/api/v1/products/**").hasAuthority("SELLER");
         http.authorizeRequests().antMatchers(GET,"/api/v1/products/**").hasAuthority("BUYER");
-        http.authorizeRequests().antMatchers("/api/v1/orders/**").hasRole("BUYER");
+        http.authorizeRequests().antMatchers("/api/v1/orders/**").hasAuthority("BUYER");
 
 
         http.authorizeRequests().anyRequest().authenticated();

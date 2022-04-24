@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @Entity
@@ -17,8 +18,12 @@ public class User {
     private Long id;
     private String firstname;
     private String lastname;
+
     private String username;
+
     private String password;
+
+    @Email(message="{errors.invalid_email}")
     private String email;
     private int points;
     private boolean isAproved;
@@ -43,7 +48,7 @@ public class User {
     })
     private Address billingAddress;
 
-    @OneToOne
+    @OneToOne()
     private ShoppingCart shoppingCart;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -17,11 +17,6 @@ public class ShoppingCartController {
         return shoppingCartService.createShoppingCart(buyer_id);
     }
 
-//    @GetMapping("/{buyer_id}")
-//    public ShoppingCart getShoppingCartByBuyerId(@PathVariable long buyer_id) {
-//       return shoppingCartService.getShoppingCartByBuyerId(buyer_id);
-//    }
-
     @GetMapping("/{cart_id}/cart")
     public ShoppingCart getShoppingCartById(@PathVariable long cart_id){
         return shoppingCartService.getShoppingCartById(cart_id);
@@ -40,6 +35,11 @@ public class ShoppingCartController {
     @DeleteMapping("/{buyer_id}/{product_id}")
     public ShoppingCart deleteProductByIdFromCart(@PathVariable long buyer_id, @PathVariable long product_id){
         return shoppingCartService.deleteProductByIdFromCart(buyer_id, product_id);
+    }
+
+    @PatchMapping("/{user_id}")
+    public ShoppingCart clearShopingCart(@PathVariable long user_id){
+        return shoppingCartService.clearShoppingCart(user_id);
     }
 
 
