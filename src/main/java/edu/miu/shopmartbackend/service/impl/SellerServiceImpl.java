@@ -8,13 +8,5 @@ import java.util.List;
 
 @Service
 public class SellerServiceImpl implements SellerService {
-    @Override
-    public List<Product> findProducts(long id) {
-        return null;
-    }
 
-    @Override
-    public Product addProduct(Product product, long id) {
-        return null;
-    }
 }

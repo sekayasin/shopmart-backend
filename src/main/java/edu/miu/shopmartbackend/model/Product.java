@@ -21,7 +21,6 @@ public class Product {
     private String description;
     private boolean isPurchased;
 
-    //seller
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private User seller;

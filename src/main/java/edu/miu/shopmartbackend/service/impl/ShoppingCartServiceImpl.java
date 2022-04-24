@@ -42,11 +42,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     }
 
-//    @Override
-//    public ShoppingCart getShoppingCartByBuyerId(long buyer_id) {
-//       // User buyer = userRepo.getUserById(buyer_id);
-//        return shoppingCartRepo.getShoppingCartByBuyerId(buyer_id);
-//    }
 
     @Override
     public ShoppingCart getShoppingCartById(long cart_id) {
@@ -59,12 +54,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = buyer.getShoppingCart();
 
         Product product = productRepo.findById(product_id).get();
-
-//        ShoppingCart shoppingCart = shoppingCartRepo.getById(buyer_id);//getShoppingCart(buyer_id);
         List<Product> products = shoppingCart.getProducts();
         products.add(product);
         shoppingCart.setProducts(products);
-        //shoppingCart.setBuyer(buyer);
         buyer.setShoppingCart(shoppingCart);
         userRepo.save(buyer);
         return shoppingCartRepo.save(shoppingCart);
@@ -74,12 +66,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public void deleteShoppingCart(long buyer_id) {
         User buyer = userRepo.findById(buyer_id).get();
         ShoppingCart shoppingCart = buyer.getShoppingCart();
-//        shoppingCart.setProducts(new ArrayList<>());
-//        shoppingCartRepo.save(shoppingCart);
         shoppingCart.setProducts(null);
-
-        // shoppingCartRepo.delete(shoppingCart);
-//        buyer.setShoppingCart(shoppingCart);
         userRepo.save(buyer);
     }
 
@@ -99,7 +86,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart clearShopingCart(long user_id) {
+    public ShoppingCart clearShoppingCart(long user_id) {
         User user = userRepo.findById(user_id).get();
         ShoppingCart shoppingCart = user.getShoppingCart();
         shoppingCart.setProducts(new ArrayList<>());

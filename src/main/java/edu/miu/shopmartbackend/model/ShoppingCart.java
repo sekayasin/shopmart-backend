@@ -3,8 +3,6 @@ package edu.miu.shopmartbackend.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,10 +16,6 @@ public class ShoppingCart {
     private Long id;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-//    @Fetch(FetchMode.JOIN)
     private List<Product> products;
-
-//    @OneToOne
-//    private User buyer;
 
 }

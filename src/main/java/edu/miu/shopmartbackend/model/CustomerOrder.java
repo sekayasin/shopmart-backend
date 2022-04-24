@@ -23,11 +23,9 @@ public class CustomerOrder {
     private OrderStatus orderStatus;
     private double totalOrderPrice;
 //
-//    @ManyToOne
-//    private User user;
+    @ManyToOne
+    private User buyer;
 
-//    @OneToMany
-//    private List<Product> products;
 
     @OneToOne
    private ShoppingCart shoppingCart;

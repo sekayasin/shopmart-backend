@@ -21,6 +21,6 @@ public class OrderDto {
     private OrderStatus orderStatus;
     @JsonProperty("total_price")
     private double totalOrderPrice;
-//    @JsonProperty("buyer")
-//    private User buyer;
+    @JsonProperty("buyer")
+    private User buyer;
 }

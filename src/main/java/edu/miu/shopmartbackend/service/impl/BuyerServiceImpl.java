@@ -23,7 +23,6 @@ public class BuyerServiceImpl implements BuyerService {
     private ShoppingCartRepo shoppingCartRepo;
 
 
-
     @Override
     public boolean unFollowSeller(long buyer_id, long seller_id) {
         User buyer = userRepo.getUserById(buyer_id);
@@ -47,14 +46,10 @@ public class BuyerServiceImpl implements BuyerService {
             }
             return false;
 
-
-            //System.out.println("after........." + buyer.isFollowing());
-
         }
 
-        //return following;
 
-        return false;//following.stream().collect(Collectors.toList());
+        return true;//following.stream().collect(Collectors.toList());
 
 
     }

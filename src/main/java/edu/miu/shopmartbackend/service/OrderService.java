@@ -1,15 +1,13 @@
 package edu.miu.shopmartbackend.service;
 
-
-import edu.miu.shopmartbackend.model.CustomerOrder;
 import edu.miu.shopmartbackend.model.dto.OrderDto;
 
 public interface OrderService {
 
 
-    OrderDto findOrderById(long id);
+    OrderDto findOrderById(long order_id);
 
-    CustomerOrder cancelOrder(long orderId);
+    OrderDto cancelOrder(long orderId);
 
     OrderDto shipOrder(long orderId);
 

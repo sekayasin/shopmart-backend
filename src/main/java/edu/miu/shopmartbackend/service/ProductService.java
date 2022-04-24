@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProductService {
 
 
-    public void saveProduct(Product product, long seller_id);
+     void saveProduct(Product product, long seller_id);
 
     List<ProductDto> getAllProducts();
 

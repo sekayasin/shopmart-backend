@@ -29,8 +29,8 @@ public class OrderServiceImpl implements OrderService {
     ModelMapper modelMapper;
 
     @Override
-    public OrderDto findOrderById(long id) {
-        return modelMapper.map(orderRepo.findById(id).get(), OrderDto.class);
+    public OrderDto findOrderById(long order_id) {
+        return modelMapper.map(orderRepo.findById(order_id).get(), OrderDto.class);
     }
 
 
@@ -43,13 +43,13 @@ public class OrderServiceImpl implements OrderService {
         customerOrder.setOrderStatus(OrderStatus.ORDERED);
         customerOrder.setOrderDate(LocalDate.now());
         customerOrder.setShoppingCart(shoppingCart);
-//        customerOrder.setUser(buyer);
+        customerOrder.setBuyer(buyer);
 
-        double totalPrice =0;
+        double totalPrice = 0;
         List<Product> products = shoppingCart.getProducts();
 
-        for (Product p: products){
-            totalPrice+=p.getPrice();
+        for (Product p : products) {
+            totalPrice += p.getPrice();
         }
 
         customerOrder.setTotalOrderPrice(totalPrice);
@@ -61,44 +61,56 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto shipOrder(long orderId) {
 
-        CustomerOrder orders = modelMapper.map(findOrderById(orderId), CustomerOrder.class);
-//        List<Product> products = orders.getProducts();
-//       products.forEach(p -> p.setPurchased(true));
+        CustomerOrder orders = modelMapper.map(orderRepo.findById(orderId).get(), CustomerOrder.class);
+        ShoppingCart shoppingCart = orders.getShoppingCart();
+
+        List<Product> products = shoppingCart.getProducts();
+        if(products != null)
+        products.forEach(p -> p.setPurchased(true));
 //
+        shoppingCart.setProducts(products);
+        orders.setShoppingCart(shoppingCart);
 //        Order order = modelMapper.map(findOrderById(orderId), Order.class);
-        if (orders.getOrderStatus() == OrderStatus.ORDERED){
+        if (orders.getOrderStatus() == OrderStatus.ORDERED) {
             orders.setOrderStatus(OrderStatus.SHIPPED);
+        }
+        return modelMapper.map(orderRepo.save(orders), OrderDto.class);
+    }
+
+    @Override
+    public OrderDto deliverOrder(long orderId) {
+        CustomerOrder order = modelMapper.map(orderRepo.findById(orderId).get(), CustomerOrder.class);
+        if (order.getOrderStatus() == OrderStatus.SHIPPED) {
+            order.setOrderStatus(OrderStatus.DELIVERED);
+        }
+        User buyer = order.getBuyer();
+        int points = buyer.getPoints() + 10;
+        buyer.setPoints(points);
+        order.setBuyer(buyer);
+        return modelMapper.map(orderRepo.save(order),OrderDto .class);
+
+    }
+    @Override
+    public OrderDto cancelOrder(long orderId) {
+        CustomerOrder orders = modelMapper.map(orderRepo.findById(orderId).get(), CustomerOrder.class);
+
+        ShoppingCart shoppingCart = orders.getShoppingCart();
+
+        List<Product> products = shoppingCart.getProducts();
+        if(products != null)
+            products.forEach(p -> p.setPurchased(false));
+
+        shoppingCart.setProducts(products);
+        orders.setShoppingCart(shoppingCart);
+
+        if (orders.getOrderStatus() == OrderStatus.ORDERED) {
+            orders.setOrderStatus(OrderStatus.CANCELLED);
         }
         return modelMapper.map(orderRepo.save(orders), OrderDto.class);
     }
 
 
 
-    @Override
-    public CustomerOrder cancelOrder(long orderId) {
-//        Order orders = modelMapper.map(findOrderById(orderId), Order.class);
-//        List<Product> products = orders.getProducts();
-//        products.forEach(p -> p.setPurchased(false));
-//        if(orders.getOrderStatus() == OrderStatus.ORDERED){
-//            orders.setOrderStatus(OrderStatus.CANCELLED);
-//        }
-//        return orderRepo.save(orders);
-        return null;
-    }
-
-
-    @Override
-    public OrderDto deliverOrder(long orderId) {
-        CustomerOrder order = modelMapper.map(findOrderById(orderId), CustomerOrder.class);
-        if (order.getOrderStatus() == OrderStatus.SHIPPED){
-            order.setOrderStatus(OrderStatus.DELIVERED);
-            User user = order.getShoppingCart().get;
-           int points =  user.getPoints() + 10;
-           user.setPoints(points);
-           order.setUser(user);
-//        }
-//        return modelMapper.map(orderRepo.save(order), OrderDto.class);
-        return null;
-    }
-
 }
+
+
