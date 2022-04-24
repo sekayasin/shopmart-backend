@@ -1,5 +1,6 @@
 package edu.miu.shopmartbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +22,10 @@ public class Product {
     private boolean isPurchased;
 
     //seller
-    @ManyToOne
-    private User user;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User seller;
 
-    @OneToMany
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<Review> reviews;
 }

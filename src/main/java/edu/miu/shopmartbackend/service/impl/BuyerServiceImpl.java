@@ -23,29 +23,6 @@ public class BuyerServiceImpl implements BuyerService {
     private ShoppingCartRepo shoppingCartRepo;
 
 
-    @Override
-    public List<Product> findOrCreateShoppingCart(long id) {
-        User buyer = userRepo.findById(id).orElse(null);
-        ShoppingCart shoppingCart = shoppingCartRepo.findFirstByBuyer(buyer);
-        return shoppingCart.getProducts();
-    }
-
-    @Override
-    public List<Product> addProductsToCart(List<Product> products, long id) {
-        User buyer = userRepo.findById(id).orElse(null);
-        ShoppingCart shoppingCart = shoppingCartRepo.findShoppingCartByBuyer(buyer);
-        shoppingCart.setProducts(products);
-        return shoppingCartRepo.save(shoppingCart).getProducts();
-    }
-
-    @Override
-    public List<Product> clearShoppingCart(long id) {
-        User buyer = userRepo.findById(id).orElse(null);
-        ShoppingCart shoppingCart = shoppingCartRepo.findShoppingCartByBuyer(buyer);
-        shoppingCart.setProducts(new ArrayList<>());
-        return shoppingCartRepo.save(shoppingCart).getProducts();
-    }
-
 
     @Override
     public boolean unFollowSeller(long buyer_id, long seller_id) {
@@ -81,7 +58,6 @@ public class BuyerServiceImpl implements BuyerService {
 
 
     }
-
 
 
         @Override

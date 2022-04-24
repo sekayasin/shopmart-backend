@@ -1,6 +1,5 @@
 package edu.miu.shopmartbackend.service.impl;
 
-import edu.miu.shopmartbackend.model.Order;
 import edu.miu.shopmartbackend.model.Product;
 import edu.miu.shopmartbackend.model.Review;
 import edu.miu.shopmartbackend.model.User;
@@ -43,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void saveProduct(Product product, long seller_id) {
         User seller = userRepo.getUserById(seller_id);
-        product.setUser(seller);
+        product.setSeller(seller);
          productRepo.save(product);      }
 
     @Override

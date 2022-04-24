@@ -19,24 +19,6 @@ public class BuyerController {
     UserService userService;
 
 
-    @PatchMapping("/{id}/cart")
-    List<Product> findOrCreateShoppingCart(@PathVariable long id) {
-
-        return buyerService.findOrCreateShoppingCart(id);
-    }
-
-    @PostMapping({"/{buyerid}/products"})
-    List<Product> addProductsToCart(@RequestBody List<Product> products, @PathVariable("buyerid") long id) {
-
-        return buyerService.addProductsToCart(products, id);
-    }
-
-    @PatchMapping("/{buyerid}")
-    List<Product> clearShoppingCart(@PathVariable long id) {
-
-        return buyerService.clearShoppingCart(id);
-    }
-
 
     @PatchMapping("{buyer_id}/{seller_id}/follow")
    void followSeller(@PathVariable("buyer_id") long buyer_id, @PathVariable long seller_id){

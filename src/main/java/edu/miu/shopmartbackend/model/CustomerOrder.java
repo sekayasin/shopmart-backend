@@ -8,13 +8,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-public class Order {
+public class CustomerOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,10 +22,13 @@ public class Order {
     private LocalDate orderDate;
     private OrderStatus orderStatus;
     private double totalOrderPrice;
-
+//
     @ManyToOne
     private User user;
 
-    @OneToMany
-    private List<Product> products;
+//    @OneToMany
+//    private List<Product> products;
+
+    @OneToOne
+   private ShoppingCart shoppingCart;
 }

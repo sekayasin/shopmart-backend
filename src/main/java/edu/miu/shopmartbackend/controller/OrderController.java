@@ -1,6 +1,6 @@
 package edu.miu.shopmartbackend.controller;
 
-import edu.miu.shopmartbackend.model.Order;
+import edu.miu.shopmartbackend.model.CustomerOrder;
 import edu.miu.shopmartbackend.model.dto.OrderDto;
 import edu.miu.shopmartbackend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     @RolesAllowed("BUYER")
     @PostMapping
-    Order saveOrder(@RequestBody Order orders){
+    CustomerOrder saveOrder(@RequestBody CustomerOrder orders){
 
         return orderService.saveOrder(orders);
     }
@@ -34,7 +34,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.OK)
     @RolesAllowed("BUYER")
     @DeleteMapping("/{orderId}")
-    Order cancelOrder(@PathVariable long orderId){
+    CustomerOrder cancelOrder(@PathVariable long orderId){
         return orderService.cancelOrder(orderId);
     }
 
