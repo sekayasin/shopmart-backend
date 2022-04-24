@@ -34,6 +34,12 @@ BUYER/SELLER user are required to signup first to use the application.
 
 The ADMIN user is required to approve the buyer/seller accounts before their start using the application
 
+### Application Demo
+
+Link to [Backend Demo](https://youtu.be/btymqjU1BnU)
+
+Link to [Frontend Demo](https://youtu.be/izsszQLTSUM)
+
 ## Running the Dockerized Application
 
 The application has been containerized and can be run using the docker-compose file
@@ -68,6 +74,8 @@ The images are hosted on docker-hub repository, hence they will be pulled once t
     
     ## start the application and monitor the logs, don't run in detached mode
     $ docker compose up
+    
+    ## make sure you don't have another instance of postgres running on port 5432
     ```
 
 ### ShopMart Backend
