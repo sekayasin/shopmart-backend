@@ -22,8 +22,8 @@ public class Product {
 
     //seller
     @ManyToOne
-    private User user;
+    private User seller;
 
-    @OneToMany
+    @OneToMany(mappedBy = "product")
     private List<Review> reviews;
 }

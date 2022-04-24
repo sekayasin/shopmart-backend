@@ -20,4 +20,5 @@ public class ShoppingCart {
 
     @OneToOne
     private User buyer;
+
 }

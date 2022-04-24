@@ -51,12 +51,12 @@ public class User {
     List<Role> roles;
 
     @OneToMany
-    private List<Order> orders;
+    private List<CustomerOrder> orders;
 
-    @OneToMany
+    @OneToMany(mappedBy = "buyer")
     private List<Review> reviews;
 
-    @OneToMany
+    @OneToMany(mappedBy = "seller")
     private List<Product> products;
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
