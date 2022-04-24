@@ -17,6 +17,10 @@ public interface UserService {
 
    List<UserDto> getAllUsers();
 
+    List<UserDto> getAllSellers();
+
+    List<UserDto> getAllBuyers();
+
     UserDto getUserById(long id);
 
     void addUser(UsernamePassDto user);
