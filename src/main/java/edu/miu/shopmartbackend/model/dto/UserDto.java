@@ -14,16 +14,16 @@ import java.util.List;
 public class UserDto {
 
     @JsonProperty("user_id")
-    private long id;
+    private Long id;
 
     @JsonProperty("f_name")
-    private String fName;
+    private String firstname;
 
     @JsonProperty("l_name")
-    private String lName;
+    private String lastname;
 
     @JsonProperty("user_name")
-    private String userName;
+    private String username;
 
     @JsonProperty("points")
     private int points;
