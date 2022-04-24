@@ -1,5 +1,6 @@
 package edu.miu.shopmartbackend.controller;
 
+import edu.miu.shopmartbackend.aspect.annotation.EmailSender;
 import edu.miu.shopmartbackend.model.dto.OrderDto;
 import edu.miu.shopmartbackend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class OrderController {
     OrderService orderService;
 
     @ResponseStatus(HttpStatus.OK)
+    @EmailSender
     @PatchMapping("/{buyer_id}/placed")
     OrderDto placeOrder (@PathVariable("buyer_id") long buyer_id){
         return orderService.placeOrder(buyer_id);
@@ -26,6 +28,7 @@ public class OrderController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @EmailSender
     @PatchMapping("/{orderId}/ship")
     OrderDto shipOrder(@PathVariable("orderId") long orderId){
         return orderService.shipOrder(orderId);
