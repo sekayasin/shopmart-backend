@@ -1,5 +1,6 @@
 package edu.miu.shopmartbackend.controller;
 
+import edu.miu.shopmartbackend.aspect.annotation.EmailSender;
 import edu.miu.shopmartbackend.model.Product;
 import edu.miu.shopmartbackend.model.User;
 import edu.miu.shopmartbackend.model.dto.ProductDto;
@@ -9,6 +10,7 @@ import edu.miu.shopmartbackend.service.ReviewService;
 import edu.miu.shopmartbackend.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +35,8 @@ public class ProductController {
     @Autowired
     ModelMapper modelMapper;
 
+    @EmailSender
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/{seller_id}")
     public void saveProduct(@RequestBody ProductDto productDto, @PathVariable long seller_id){
         User seller = modelMapper.map(userService.getUserById(seller_id), User.class);
@@ -49,6 +53,7 @@ public class ProductController {
 
 
     }
+
 
     @GetMapping
     public List<ProductDto> getAllProducts(){

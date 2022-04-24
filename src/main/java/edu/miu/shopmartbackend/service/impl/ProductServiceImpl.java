@@ -27,8 +27,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     OrderRepo orderRepo;
 
-    @Autowired
-    ReviewRepo reviewRepo;
+
 
     @Autowired
     UserRepo userRepo;
