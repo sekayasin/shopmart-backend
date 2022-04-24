@@ -16,26 +16,18 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @RolesAllowed("BUYER")
-    @PostMapping
-    CustomerOrder saveOrder(@RequestBody CustomerOrder orders){
-
-        return orderService.saveOrder(orders);
+    @ResponseStatus(HttpStatus.OK)
+    //@RolesAllowed("BUYER")
+    @PatchMapping("/{buyer_id}/placed")
+    OrderDto placeOrder (@PathVariable("buyer_id") long buyer_id){
+        return orderService.placeOrder(buyer_id);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RolesAllowed("BUYER")
+    // @RolesAllowed("BUYER")
     @GetMapping("/{id}")
     OrderDto findOrderById(@PathVariable("id") long id){
         return orderService.findOrderById(id);
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @RolesAllowed("BUYER")
-    @DeleteMapping("/{orderId}")
-    CustomerOrder cancelOrder(@PathVariable long orderId){
-        return orderService.cancelOrder(orderId);
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -50,10 +42,17 @@ public class OrderController {
         return orderService.deliverOrder(orderId);
     }
 
+
     @ResponseStatus(HttpStatus.OK)
-    @RolesAllowed("BUYER")
-    @PatchMapping("/{id}/placed")
-    OrderDto placeOrder (@PathVariable("id") long id){
-        return orderService.placeOrder(id);
+    //@RolesAllowed("BUYER")
+    @DeleteMapping("/{orderId}")
+    CustomerOrder cancelOrder(@PathVariable long orderId){
+        return orderService.cancelOrder(orderId);
     }
+
+
+
+
+
+
 }

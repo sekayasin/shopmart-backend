@@ -27,12 +27,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart createShoppingCart(long user_id) {
-        ShoppingCart shoppingCart ;
+        ShoppingCart shoppingCart;
         User buyer = userRepo.getUserById(user_id);
-        if (buyer.getShoppingCart() == null){
+        if (buyer.getShoppingCart() == null) {
             shoppingCart = new ShoppingCart();
-        }
-        else{
+        } else {
             return null;
         }
         buyer.setShoppingCart(shoppingCart);
@@ -73,36 +72,44 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void deleteShoppingCart(long buyer_id) {
-        User buyer = userRepo.getUserById(buyer_id);
-       shoppingCartRepo.delete(buyer.getShoppingCart());
+        User buyer = userRepo.findById(buyer_id).get();
+        ShoppingCart shoppingCart = buyer.getShoppingCart();
+//        shoppingCart.setProducts(new ArrayList<>());
+//        shoppingCartRepo.save(shoppingCart);
+        shoppingCart.setProducts(null);
+
+        // shoppingCartRepo.delete(shoppingCart);
+//        buyer.setShoppingCart(shoppingCart);
+        userRepo.save(buyer);
     }
 
     @Override
     public ShoppingCart deleteProductByIdFromCart(long buyer_id, long product_id) {
-        Product product = productRepo.getById(product_id);
-    User buyer = userRepo.getUserById(buyer_id);
-    ShoppingCart shoppingCart = buyer.getShoppingCart();
+        Product product = productRepo.findById(product_id).get();
+        User buyer = userRepo.findById(buyer_id).get();
+        ShoppingCart shoppingCart = buyer.getShoppingCart();
 
-    List<Product>products = shoppingCart.getProducts();
-    products.remove(product);
-    shoppingCart.setProducts(products);
-    buyer.setShoppingCart(shoppingCart);
-    return shoppingCart;
+        List<Product> products = shoppingCart.getProducts();
+        products.remove(product);
+        shoppingCart.setProducts(products);
+        shoppingCartRepo.save(shoppingCart);
+        buyer.setShoppingCart(shoppingCart);
+        userRepo.save(buyer);
+        return shoppingCart;
+    }
+
+    @Override
+    public ShoppingCart clearShopingCart(long user_id) {
+        User user = userRepo.findById(user_id).get();
+        ShoppingCart shoppingCart = user.getShoppingCart();
+        shoppingCart.setProducts(new ArrayList<>());
+        shoppingCartRepo.save(shoppingCart);
+        user.setShoppingCart(shoppingCart);
+
+        return shoppingCart;
     }
 
 
-//    @Override
-//    public Product addProductToShoppingCart(Product product) {
-//        return null;
-//    }
-//
-//    @Override
-//    public ShoppingCart addShoppingCart(ShoppingCart shoppingCart) {
-//        return null;
-//    }
-//
-//    @Override
-//    public void deleteShoppingCart(ShoppingCart shoppingCart) {
-//
-//    }
+
+
 }

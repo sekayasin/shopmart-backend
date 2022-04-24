@@ -43,7 +43,7 @@ public class User {
     })
     private Address billingAddress;
 
-    @OneToOne
+    @OneToOne()
     private ShoppingCart shoppingCart;
 
     @ManyToMany(fetch = FetchType.EAGER)

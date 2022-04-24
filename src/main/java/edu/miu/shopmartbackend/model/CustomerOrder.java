@@ -23,8 +23,8 @@ public class CustomerOrder {
     private OrderStatus orderStatus;
     private double totalOrderPrice;
 //
-    @ManyToOne
-    private User user;
+//    @ManyToOne
+//    private User user;
 
 //    @OneToMany
 //    private List<Product> products;

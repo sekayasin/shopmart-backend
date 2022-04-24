@@ -42,6 +42,11 @@ public class ShoppingCartController {
         return shoppingCartService.deleteProductByIdFromCart(buyer_id, product_id);
     }
 
+    @PatchMapping("/{user_id}")
+    public ShoppingCart clearShopingCart(@PathVariable long user_id){
+        return shoppingCartService.clearShopingCart(user_id);
+    }
+
 
 
 

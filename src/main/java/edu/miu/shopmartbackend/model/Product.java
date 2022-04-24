@@ -26,6 +26,6 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     private User seller;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Review> reviews;
 }

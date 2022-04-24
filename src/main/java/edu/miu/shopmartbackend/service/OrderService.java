@@ -6,7 +6,6 @@ import edu.miu.shopmartbackend.model.dto.OrderDto;
 
 public interface OrderService {
 
-    CustomerOrder saveOrder(CustomerOrder orders);
 
     OrderDto findOrderById(long id);
 
@@ -16,5 +15,5 @@ public interface OrderService {
 
     OrderDto deliverOrder(long orderId);
 
-    OrderDto placeOrder (long id);
+    OrderDto placeOrder (long buyer_id);
 }

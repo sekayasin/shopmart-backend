@@ -19,7 +19,7 @@ public interface ShoppingCartService {
 
     ShoppingCart deleteProductByIdFromCart(long buyer_id, long product_id);
 
-
+    ShoppingCart clearShopingCart(long user_id);
 
 
 //    Product addProductToShoppingCart(Product product);
