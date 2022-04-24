@@ -19,12 +19,8 @@ public class User {
     private String firstname;
     private String lastname;
 
-//    @Column(nullable=false)
-//    @NotNull(message = "* userName is required")
     private String username;
 
-//    @Column(nullable=false)
-//    @NotNull(message = "* password is required")
     private String password;
 
     @Email(message="{errors.invalid_email}")
