@@ -51,21 +51,23 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart getShoppingCartById(long cart_id) {
-        return shoppingCartRepo.getById(cart_id);
+        return shoppingCartRepo.findById(cart_id).get();
     }
 
     @Override
     public ShoppingCart addProductToShoppingCart(long buyer_id, long product_id) {
-       // User buyer = userRepo.getUserById(buyer_id);
-        Product product = productRepo.getById(product_id);
-        System.out.println("*********addPRRR**** " + product);
-        ShoppingCart shoppingCart = shoppingCartRepo.getById(buyer_id);//getShoppingCart(buyer_id);
+        User buyer = userRepo.findById(buyer_id).get();
+        ShoppingCart shoppingCart = buyer.getShoppingCart();
+
+        Product product = productRepo.findById(product_id).get();
+
+//        ShoppingCart shoppingCart = shoppingCartRepo.getById(buyer_id);//getShoppingCart(buyer_id);
         List<Product> products = shoppingCart.getProducts();
-        System.out.println("*********addPRRR**** " + product);
         products.add(product);
         shoppingCart.setProducts(products);
         //shoppingCart.setBuyer(buyer);
-//        buyer.setShoppingCart(shoppingCart);
+        buyer.setShoppingCart(shoppingCart);
+        userRepo.save(buyer);
         return shoppingCartRepo.save(shoppingCart);
     }
 
